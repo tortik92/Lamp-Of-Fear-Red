@@ -78,9 +78,13 @@ flutter_app/red_lamp_of_fear/README.md
 /flutter_app/red_lamp_of_fear/linux
 /flutter_app/red_lamp_of_fear/ios
 /flutter_app/red_lamp_of_fear/android/app/src/main/kotlin
-/flutter_app/red_lamp_of_fear/android/app/src/main/res
 flutter_app/red_lamp_of_fear/android/build.gradle
 flutter_app/red_lamp_of_fear/android/gradle.properties
 flutter_app/red_lamp_of_fear/android/settings.gradle
-flutter_app/red_lamp_of_fear/android/app/build.gradle
 flutter_app/red_lamp_of_fear/analysis_options.yaml
+/flutter_app/red_lamp_of_fear/android/app/src/main/res/drawable-v21
+/flutter_app/red_lamp_of_fear/android/app/src/main/res/drawable
+/flutter_app/red_lamp_of_fear/android/app/src/main/res/values-night
+/flutter_app/red_lamp_of_fear/android/app/src/main/res/values
+/flutter_app/red_lamp_of_fear/android/app/src/profile
+/flutter_app/red_lamp_of_fear/android/gradle/wrapper
