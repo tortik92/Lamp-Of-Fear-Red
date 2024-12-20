@@ -71,3 +71,16 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/flutter_app/red_lamp_of_fear/windows
+/flutter_app/red_lamp_of_fear/web
+flutter_app/red_lamp_of_fear/README.md
+/flutter_app/red_lamp_of_fear/macos
+/flutter_app/red_lamp_of_fear/linux
+/flutter_app/red_lamp_of_fear/ios
+/flutter_app/red_lamp_of_fear/android/app/src/main/kotlin
+/flutter_app/red_lamp_of_fear/android/app/src/main/res
+flutter_app/red_lamp_of_fear/android/build.gradle
+flutter_app/red_lamp_of_fear/android/gradle.properties
+flutter_app/red_lamp_of_fear/android/settings.gradle
+flutter_app/red_lamp_of_fear/android/app/build.gradle
+flutter_app/red_lamp_of_fear/analysis_options.yaml
