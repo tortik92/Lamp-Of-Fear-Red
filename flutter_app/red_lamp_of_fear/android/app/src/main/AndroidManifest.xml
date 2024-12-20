@@ -11,7 +11,7 @@
 
     <application
         android:label="Red Lamp"
-        android:name="com.cakelab.lamp_of_fear_red"
+        android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
