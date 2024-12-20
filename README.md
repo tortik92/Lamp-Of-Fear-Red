@@ -1,2 +1,2 @@
-# lamp_of_fear_red
+# (LOFR): Lamp of Fear: Red
  Presentation Lamp for Time Monitoring
