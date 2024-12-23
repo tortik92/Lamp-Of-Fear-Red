@@ -208,118 +208,125 @@ Future<bool> requestPermissions() async {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // MAIN STOPWATCH
-            DefaultTextStyle(
-              style: const TextStyle(color: Colors.black, fontSize: 69),
-              child: Text(returnFormattedText(stopwatch.elapsed)),
-            ),
-            const SizedBox(height: 20),
-
-            // No Light Input
-            OutlinedButton(
-              
-              style:  
-                const ButtonStyle(
-                  minimumSize: WidgetStatePropertyAll(Size(200, 50)),
-                  shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))))
+      body:
+        OrientationBuilder(builder: (context, orientation) {
+          return GridView.count(
+            crossAxisCount: orientation == Orientation.portrait ? 1 : 2,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  DefaultTextStyle(
+                  style: const TextStyle(color: Colors.black, fontSize: 120),
+                  child: Text(returnFormattedText(stopwatch.elapsed)),
                 ),
-              onPressed: () {
-                    _showDialog(
-                      CupertinoTimerPicker(
-                        mode: CupertinoTimerPickerMode.ms,
-                        initialTimerDuration: noLightDuration,
-                        onTimerDurationChanged: (Duration newDuration) {
-                          setState(() => noLightDuration = newDuration);
-                        },
-                      ),
-                    );
-                  }, 
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [ 
-                  const Text(
-                    "No Light: ", 
-                    style: TextStyle(fontSize: 20, color: Colors.black)),
-                  Text(
-                    returnFormattedText(noLightDuration), 
-                    style: const TextStyle(fontSize: 22, color: Colors.black),)
                 ],
               ),
-            ),
-            const SizedBox(height: 10),
+              Column(
+                mainAxisAlignment: orientation == Orientation.portrait ? MainAxisAlignment.start : MainAxisAlignment.center,
+                children: [
+                  // No Light Input
+                OutlinedButton(
+                  
+                  style:  
+                    const ButtonStyle(
+                      minimumSize: WidgetStatePropertyAll(Size(200, 50)),
+                      shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))))
+                    ),
+                  onPressed: () {
+                        _showDialog(
+                          CupertinoTimerPicker(
+                            mode: CupertinoTimerPickerMode.ms,
+                            initialTimerDuration: noLightDuration,
+                            onTimerDurationChanged: (Duration newDuration) {
+                              setState(() => noLightDuration = newDuration);
+                            },
+                          ),
+                        );
+                      }, 
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [ 
+                      const Text(
+                        "No Light: ", 
+                        style: TextStyle(fontSize: 20, color: Colors.black)),
+                      Text(
+                        returnFormattedText(noLightDuration), 
+                        style: const TextStyle(fontSize: 22, color: Colors.black),)
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
 
-            // Blinking Input
-            OutlinedButton(
-              style: 
-              const ButtonStyle(
-                minimumSize: WidgetStatePropertyAll(Size(200, 50)),
-                shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))))
-              ),
-              onPressed: () {
-                    _showDialog(
-                      CupertinoTimerPicker(
-                        mode: CupertinoTimerPickerMode.ms,
-                        initialTimerDuration: noLightDuration,
-                        onTimerDurationChanged: (Duration newDuration) {
-                          setState(() => blinkDuration = newDuration);
-                        },
-                      ),
-                    );
-                  }, 
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [ 
-                  const Text(
-                    "Blinking: ", 
-                    style: TextStyle(fontSize: 20, color: Colors.black)),
-                  Text(
-                    returnFormattedText(blinkDuration), 
-                    style: const TextStyle(fontSize: 22, color: Colors.black),)
+                // Blinking Input
+                OutlinedButton(
+                  style: 
+                  const ButtonStyle(
+                    minimumSize: WidgetStatePropertyAll(Size(200, 50)),
+                    shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))))
+                  ),
+                  onPressed: () {
+                        _showDialog(
+                          CupertinoTimerPicker(
+                            mode: CupertinoTimerPickerMode.ms,
+                            initialTimerDuration: noLightDuration,
+                            onTimerDurationChanged: (Duration newDuration) {
+                              setState(() => blinkDuration = newDuration);
+                            },
+                          ),
+                        );
+                      }, 
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [ 
+                      const Text(
+                        "Blinking: ", 
+                        style: TextStyle(fontSize: 20, color: Colors.black)),
+                      Text(
+                        returnFormattedText(blinkDuration), 
+                        style: const TextStyle(fontSize: 22, color: Colors.black),)
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                // Start/Pause Button
+                TextButton(
+                  onPressed: connected ? handleStartStop: null,
+                  style: const 
+                  ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(Colors.greenAccent), 
+                    minimumSize: WidgetStatePropertyAll(Size(200, 10)),
+                    shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))))
+                  ),
+                  child: Text(stopwatch.isRunning ? "Pause" : "Start", style: const TextStyle(color: Colors.black, fontSize: 20),),
+                ),
+                const SizedBox(height: 5),
+
+                // Reset Button
+                TextButton(
+                  onPressed: connected ? handleReset : null,
+                  style: const 
+                  ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.redAccent), 
+                    minimumSize: WidgetStatePropertyAll(Size(200, 10)),
+                    shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))))
+                  ),
+                  child: const Text("Reset", style: TextStyle(color: Colors.black, fontSize: 20),),
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: 200,
+                  child: Center(child: TextButton(onPressed: findBLEDevice, child: Text('Status: $connectionStatus'))),
+                ),
                 ],
-              ),
-            ),
-            const SizedBox(height: 20),
-
-            // Start/Pause Button
-            TextButton(
-              onPressed: connected ? handleStartStop: null,
-              style: const 
-              ButtonStyle(
-                backgroundColor: WidgetStatePropertyAll(Colors.greenAccent), 
-                minimumSize: WidgetStatePropertyAll(Size(200, 10)),
-                shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))))
-              ),
-              child: Text(stopwatch.isRunning ? "Pause" : "Start", style: const TextStyle(color: Colors.black, fontSize: 20),),
-            ),
-            const SizedBox(height: 5),
-
-            // Reset Button
-            TextButton(
-              onPressed: connected ? handleReset : null,
-              style: const 
-              ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.redAccent), 
-                minimumSize: WidgetStatePropertyAll(Size(200, 10)),
-                shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))))
-              ),
-              child: const Text("Reset", style: TextStyle(color: Colors.black, fontSize: 20),),
-            ),
-            const SizedBox(height: 50),
-
-            SizedBox(
-              width: 200,
-              child: Center(child: TextButton(onPressed: findBLEDevice, child: Text('Status: $connectionStatus'))),
-            ),
-            
-          ],
-        ),
-      ),
+              )
+            ],
+          );
+        }),
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(vertical: 15),
         child: FloatingActionButton(
