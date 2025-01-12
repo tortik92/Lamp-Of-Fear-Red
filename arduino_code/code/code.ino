@@ -7,8 +7,8 @@
 #define CHARACTERISTIC_UUID "63616b65-6c61-6268-6172-647761726521"
 
 #define DEVICE_NAME         "Death Blinker BLE"
-#define LED_PIN             21
-#define NUM_LEDS            1
+#define LED_PIN             1
+#define NUM_LEDS            20
 
 BLEServer *pServer;
 BLEService *pService;
@@ -205,7 +205,7 @@ void handleLEDStates() {
   }
 
   if (!blCompleted && adjustedTime - blStartTime < blDuration) {
-    setLEDColor(0, 255, 0, true);
+    setLEDColor(255, 0, 0, true);
     
     return;
   }
@@ -215,7 +215,7 @@ void handleLEDStates() {
   }
 
   // Constant light
-  setLEDColor(0, 255, 0, false); // Green light (Constant)
+  setLEDColor(255, 0, 0, false); // Green light (Constant)
 }
 
 // Helper function to set LED color
@@ -245,10 +245,16 @@ void setLEDColor(uint8_t red, uint8_t green, uint8_t blue, bool pwmBlink = false
     uint8_t scaledRed = (red * brightness) / 255;
     uint8_t scaledGreen = (green * brightness) / 255;
     uint8_t scaledBlue = (blue * brightness) / 255;
-    strip.setPixelColor(0, strip.Color(scaledRed, scaledGreen, scaledBlue));
+    
+    for(int i = 0; i < NUM_LEDS; ++i) {
+      strip.setPixelColor(i, strip.Color(scaledRed, scaledGreen, scaledBlue));
+    }
+    
   } else {
     // Directly set the LED color without PWM
-    strip.setPixelColor(0, strip.Color(red, green, blue));
+    for(int i = 0; i < NUM_LEDS; ++i) {
+      strip.setPixelColor(i, strip.Color(red, green, blue));
+    }
   }
   
   strip.show();
